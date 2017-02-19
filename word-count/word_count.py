@@ -1,11 +1,16 @@
+from __future__ import unicode_literals
+
 from collections import Counter
-from string import digits, ascii_lowercase
-def word_count(sentence):
-    if "🖖" in sentence:
-        reformed = "".join([x for x in sentence if x != '!'])
-        a = dict(Counter(reformed.split("🖖")))
+
+
+def replace_nonalnum(c):
+    if c.isalnum():
+        print(c)
+        return c
     else:
-        reformed = "".join([x if x in digits+ascii_lowercase+" " else " " for x in sentence.lower() ])
-        a = Counter(reformed.split(" "))
-        a.pop("", None)
-    return a
+        return ' '
+
+
+def word_count(phrase):
+    c = Counter(''.join(map(replace_nonalnum, phrase.lower())).split())
+    return dict(c)
